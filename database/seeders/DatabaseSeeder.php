@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         for ($i = 1; $i < 3; $i++) {
             \App\Models\User::create([
                 'username' => 'dev' . $i,
-                'password' => Hash::make("hellowbyte" . $i . "!"),
+                'password' => Hash::make("hellobyte" . $i . "!"),
             ]);
         }
         for ($i = 1; $i < 3; $i++) {
