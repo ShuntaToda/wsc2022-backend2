@@ -10,7 +10,26 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
 
-    public function login(Request $request)
+    public function signup(Request $request)
+    {
+        $request->validate([
+            "username" => ["required", "min:4", "max:60"],
+            "password" => ["required", "min:8", "max:" . 2 ** 16],
+        ]);
+
+        $user = User::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+        ]);
+        if ($user) {
+            return response()->json([
+                "status" => "success",
+                "token" => $user->createToken($user->username)->plainTextToken
+            ], 201);
+        }
+        return false;
+    }
+    public function signin(Request $request)
     {
         $request->validate([
             "username" => ["required", "min:4", "max:60"],
