@@ -20,6 +20,7 @@ class LoginController extends Controller
         $user = User::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
+            "last_login" => now()
         ]);
         if ($user) {
             return response()->json([
@@ -38,12 +39,20 @@ class LoginController extends Controller
 
         $user = User::where("username", $request->username)->first();
         if ($user && Hash::check($request->password, $user->password)) {
+            $user->update([
+                "last_login" => now()
+            ]);
             return response()->json([
                 "status" => "success",
                 "token" => $user->createToken($user->username)->plainTextToken
             ], 201);
         }
         return false;
+    }
+    public function signout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return ["status" => "success"];
     }
 
     /**
