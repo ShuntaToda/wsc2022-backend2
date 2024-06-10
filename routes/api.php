@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\GameController as ApiGameController;
 use App\Http\Controllers\api\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,6 @@ Route::prefix('v1')->group(function () {
         Route::post('signup', [LoginController::class, "signup"]);
         Route::post('signin', [LoginController::class, "signin"]);
     });
+
+    Route::get("games", [ApiGameController::class, "index"]);
 });

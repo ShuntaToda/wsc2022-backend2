@@ -13,4 +13,9 @@ class GameVersion extends Model
         "game_id",
         "path",
     ];
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
 }
