@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class GameVersion extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "game_id",
+        "path",
+    ];
 }
